@@ -1,11 +1,38 @@
 {
-  "name": "iak-api-js-fe",
+  "name": "@iak-id/client_side_js_iak",
   "version": "1.0.0",
-  "description": "",
+  "description": "IAK client side library for JavaScript",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
+    "start": "npm run build && node dist/index.js"
   },
-  "author": "",
-  "license": "ISC"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iak-id/iak-api-js-fe.git"
+  },
+  "bugs": {
+    "url": "https://github.com/iak-id/iak-api-js-fe/issues"
+  },
+  "homepage": "https://github.com/iak-id/iak-api-js-fe#readme",
+  "author": "Indobest Artha Kreasi <techsupport@mobilepulsa.com>",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "rimraf": "^3.0.2"
+  },
+  "keywords": [
+    "[\"iak\"",
+    "\"mobilepulsa\"",
+    "\"indobest\"",
+    "\"mp\"",
+    "\"pulsa\"]"
+  ]
 }
