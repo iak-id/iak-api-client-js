@@ -52,7 +52,16 @@ export const pricelist = async (
   }
 };
 
-export const inquiry = async (env, username, key, code, hp, ref_id) => {
+export const inquiry = async (
+  env,
+  username,
+  key,
+  code,
+  hp,
+  ref_id,
+  month = null,
+  nomor_identitas = null
+) => {
   try {
     const url = getMainUrl(env);
 
@@ -64,7 +73,9 @@ export const inquiry = async (env, username, key, code, hp, ref_id) => {
       secret_key: key,
       code,
       hp,
-      ref_id
+      ref_id: ref_id + "-csjs-sdk",
+      month,
+      nomor_identitas
     };
 
     return await sendRequest("POST", headerRequest, url, payload);
@@ -102,7 +113,7 @@ export const checkStatus = async (env, username, key, ref_id) => {
       commands,
       username,
       secret_key: key,
-      ref_id
+      ref_id: ref_id + "-csjs-sdk"
     };
 
     return await sendRequest("POST", headerRequest, url, payload);
