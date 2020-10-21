@@ -1,5 +1,4 @@
 import { endpoint } from "../config/config";
-import { hashSign } from "./Helpers/SignHelper";
 import { isEmptyString } from "./Helpers/Helper";
 import { sendRequest } from "./Helpers/RequestHelper";
 
@@ -14,14 +13,21 @@ function getBaseUrl(env) {
 }
 
 function getMainUrl(env) {
-  return getBaseUrl(env) + "api/v1/bill/check";
+  return getBaseUrl(env) + "api/v1/client-js/bill/check";
 }
 
 function getReceiptUrl(env, tr_id) {
   return getBaseUrl(env) + "api/v1/download/" + tr_id + "/1";
 }
 
-export const pricelist = async (env, username, key, status, type = null, province = null) => {
+export const pricelist = async (
+  env,
+  username,
+  key,
+  status,
+  type = null,
+  province = null
+) => {
   try {
     const commands = "pricelist-pasca";
 
@@ -32,12 +38,12 @@ export const pricelist = async (env, username, key, status, type = null, provinc
     let payload = {
       commands,
       username,
-      sign: hashSign(username, key, "pl"),
+      secret_key: key,
       status
     };
 
-    if (type === 'pdam' && !isEmptyString(province)) {
-      payload['province'] = province;
+    if (type === "pdam" && !isEmptyString(province)) {
+      payload["province"] = province;
     }
 
     return await sendRequest("POST", headerRequest, url, payload);
@@ -46,7 +52,16 @@ export const pricelist = async (env, username, key, status, type = null, provinc
   }
 };
 
-export const inquiry = async (env, username, key, code, hp, ref_id) => {
+export const inquiry = async (
+  env,
+  username,
+  key,
+  code,
+  hp,
+  ref_id,
+  month = null,
+  nomor_identitas = null
+) => {
   try {
     const url = getMainUrl(env);
 
@@ -55,10 +70,12 @@ export const inquiry = async (env, username, key, code, hp, ref_id) => {
     const payload = {
       commands,
       username,
-      sign: hashSign(username, key, ref_id),
+      secret_key: key,
       code,
       hp,
-      ref_id
+      ref_id: ref_id + "-csjs-sdk",
+      month,
+      nomor_identitas
     };
 
     return await sendRequest("POST", headerRequest, url, payload);
@@ -76,7 +93,7 @@ export const payment = async (env, username, key, tr_id) => {
     const payload = {
       commands,
       username,
-      sign: hashSign(username, key, tr_id),
+      secret_key: key,
       tr_id
     };
 
@@ -95,8 +112,8 @@ export const checkStatus = async (env, username, key, ref_id) => {
     const payload = {
       commands,
       username,
-      sign: hashSign(username, key, "cs"),
-      ref_id
+      secret_key: key,
+      ref_id: ref_id + "-csjs-sdk"
     };
 
     return await sendRequest("POST", headerRequest, url, payload);
