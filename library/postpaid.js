@@ -59,8 +59,8 @@ export const inquiry = async (
   code,
   hp,
   ref_id,
-  month = null,
-  nomor_identitas = null
+  month = undefined,
+  nomor_identitas = undefined
 ) => {
   try {
     const url = getMainUrl(env);
