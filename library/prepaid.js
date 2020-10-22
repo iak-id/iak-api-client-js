@@ -1,5 +1,4 @@
 import { endpoint } from "../config/config";
-import { hashSign } from "./Helpers/SignHelper";
 import { isEmptyString } from "./Helpers/Helper";
 import { sendRequest } from "./Helpers/RequestHelper";
 
@@ -19,7 +18,7 @@ export const checkBalance = async (env, username, key) => {
 
     const payload = {
       username,
-      sign: hashSign(username, key, "bl")
+      secret_key: key
     };
 
     return await sendRequest("POST", headerRequest, url, payload);
@@ -28,16 +27,24 @@ export const checkBalance = async (env, username, key) => {
   }
 };
 
-export const pricelist = async (env, username, key, status, type = null, operator = null) => {
+export const pricelist = async (
+  env,
+  username,
+  key,
+  status,
+  type = null,
+  operator = null
+) => {
   try {
     let url = getBaseUrl(env) + "pricelist";
 
     url += !isEmptyString(type) ? "/" + type : "";
-    url += (!isEmptyString(type) && !isEmptyString(operator)) ? "/" + operator : "";
+    url +=
+      !isEmptyString(type) && !isEmptyString(operator) ? "/" + operator : "";
 
     const payload = {
       username,
-      sign: hashSign(username, key, "pl"),
+      secret_key: key,
       status
     };
 
@@ -54,7 +61,7 @@ export const inquiryPln = async (env, username, key, customerId) => {
     const payload = {
       username,
       customer_id: customerId,
-      sign: hashSign(username, key, customerId)
+      secret_key: key
     };
 
     return await sendRequest("POST", headerRequest, url, payload);
@@ -71,7 +78,7 @@ export const inquiryGame = async (env, username, key, customerId, gameCode) => {
       username,
       customer_id: customerId,
       game_code: gameCode,
-      sign: hashSign(username, key, gameCode)
+      secret_key: key
     };
 
     return await sendRequest("POST", headerRequest, url, payload);
@@ -87,7 +94,7 @@ export const inquiryGameServer = async (env, username, key, gameCode) => {
     const payload = {
       username,
       game_code: gameCode,
-      sign: hashSign(username, key, gameCode)
+      secret_key: key
     };
 
     return await sendRequest("POST", headerRequest, url, payload);
@@ -103,7 +110,7 @@ export const checkStatus = async (env, username, key, refId) => {
     const payload = {
       username,
       ref_id: refId,
-      sign: hashSign(username, key, refId)
+      secret_key: key
     };
 
     return await sendRequest("POST", headerRequest, url, payload);
@@ -128,7 +135,7 @@ export const topUp = async (
       ref_id: refId,
       customer_id: customerId,
       product_code: productCode,
-      sign: hashSign(username, key, refId)
+      secret_key: key
     };
 
     return await sendRequest("POST", headerRequest, url, payload);
