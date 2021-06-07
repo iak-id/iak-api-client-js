@@ -1,6 +1,6 @@
 {
-  "name": "@iak-id/client_side_js_iak",
-  "version": "1.0.0",
+  "name": "@iak-id/iak-api-client-js",
+  "version": "1.0.1",
   "description": "IAK client side library for JavaScript",
   "main": "index.js",
   "scripts": {
@@ -10,12 +10,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/iak-id/iak-api-js-fe.git"
+    "url": "git+https://github.com/iak-id/iak-api-client-js.git"
   },
   "bugs": {
-    "url": "https://github.com/iak-id/iak-api-js-fe/issues"
+    "url": "https://github.com/iak-id/iak-api-client-js.git/issues"
   },
-  "homepage": "https://github.com/iak-id/iak-api-js-fe#readme",
+  "homepage": "https://github.com/iak-id/iak-api-client-js.git#readme",
   "author": "Indobest Artha Kreasi <techsupport@mobilepulsa.com>",
   "license": "MIT",
   "dependencies": {
